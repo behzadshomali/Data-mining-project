@@ -14,7 +14,7 @@ class BaseCrawler:
     course_count = 0
 
     def __init__(self):
-        self.output_file = csv.writer(open(f'data/{self.__class__.__name__}.csv', 'w', encoding='utf-8', newline=''))
+        self.output_file = csv.writer(open(f'data/{self.__class__.__name__}.csv', 'w+', encoding='utf-8', newline=''))
         self.output_file.writerow(
             ['University', 'Abbreviation', 'Department', 'Course title', 'Unit', 'Professor', 'Objective',
              'Prerequisite', 'Required Skills', 'Outcome', 'References', 'Scores', 'Description', 'Projects',
