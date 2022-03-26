@@ -43,22 +43,21 @@ class UTS(BaseCrawler):
             if dirtyCourseLink.text != '':
                 if dirtyCourseLink.text[0].isdigit():
                     coursesLinks.append(dirtyCourseLink['href'])
-        #print(coursesLinks)
+
         return coursesLinks, Department_Name
 
     def get_course_data(self, Course_Homepage):
-        # print(Course_Homepage)
-        Projects = [] #Done
-        Scores = None #Done
-        Prerequisite = [] #Done
-        Objective = [] #Done
-        Description = None #Done
-        Course_Title = None #Done
-        Department_Name = None #Done
-        Outcome = [] #Done
-        References = [] #Done
+        Projects = [] 
+        Scores = None 
+        Prerequisite = [] 
+        Objective = [] 
+        Description = None 
+        Course_Title = None 
+        Department_Name = None 
+        Outcome = [] 
+        References = [] 
         
-        # Below fields can't be found on the website
+        # Below fields can't be found on the university's website
         Professor = None
         Professor_Homepage = None
         Required_Skills = []
@@ -117,7 +116,6 @@ class UTS(BaseCrawler):
                                     Prerequisite.append(self.listToString(course_prerequisite_table_row_data_list[2].text.split(' ')[1:], ' '))
 
                 #Finding subject (course) Description
-                #if detailed_course_ieImagesClass_elements.find('h3', text= 'Description') is not None:
                 Description = detailed_course_ieImagesClass_elements.find('h3', text= 'Description').next_element.next_element.next_element.find('p').text[1:]
 
                 #Finding subject (course) Objectives
@@ -176,6 +174,7 @@ class UTS(BaseCrawler):
                                         References.append(element.next_element.text.strip())
                                 element = element.next_element
                             break
+            
             corrupted_link = False
             return Course_Title, Department_Name, Unit_Count, Description, Objective, Professor, Required_Skills, Outcome, Scores, Prerequisite, Projects, Professor, Professor_Homepage, References, Course_Homepage, corrupted_link
         except Exception as e:
@@ -190,8 +189,9 @@ class UTS(BaseCrawler):
                 data.pop()
                 print(f'{thread_num} - {Courses_Homepages[i]} - Link was broken')
                 corrupted_links.append(Courses_Homepages[i])
-            # Course_Title, Department_Name, Unit_Count, Description, Objective, Professor, Required_Skills, Outcome, Scores, Prerequisite, Projects, Professor, Professor_Homepage, References = self.get_course_data(Courses_Homepages[i])
+
             if (i + 1) % 20 == 0:
+                '''Printing the progress of the thread'''
                 print(f'Thread {thread_num}: {i+1} / {len(Courses_Homepages)}')
 
         print(f'Thread {thread_num} finished!')
@@ -209,7 +209,6 @@ class UTS(BaseCrawler):
                     subjects_page_URL = sidebar_link.find('a')['href']
                     if subjects_page_URL.endswith('index.html'):
                         subjects_page_URL = subjects_page_URL[0:len(subjects_page_URL) - 10]
-            # print(subjects_page_URL)
             
             #Reaching Numerical list of subjects (courses) URL
             subjects_page_content = requests.get(subjects_page_URL, headers=headers, timeout=6).text
@@ -232,7 +231,6 @@ class UTS(BaseCrawler):
             for course_a_element in courses_a_elements:
                 if course_a_element.text[0].isdigit():
                     Courses_Homepages.append(course_a_element['href'])
-            #print(Courses_Homepages)
 
             print('0 / ' + str(len(Courses_Homepages)))
 
@@ -282,8 +280,6 @@ class UTS(BaseCrawler):
 
             end = time.time()
             print(f'Time elapsed: {(end - since) / 60:.2f} minutes for crawling data!')
-            # logger.info(f"{self.Abbreviation}: {Department_Name} department's data was crawled successfully.")
-
             logger.info(f"{self.Abbreviation}: Total {self.course_count} courses were crawled successfully.")
     
     def relationalToAbsoluteAddress(self, currentDirectory, relationalAddress):
