@@ -63,4 +63,3 @@ By having the keywords in hand, extracting the <b>Frequent patterns</b> was a pi
 <p align="center">
 <img src="./figures/frequent_patterns_output.png" width=25%>
 </p>
-
