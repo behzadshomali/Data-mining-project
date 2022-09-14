@@ -8,7 +8,7 @@ This repository contains our joint work (Mohammad Mohammadzadeh and I) in the co
 In this phase, we should first select a university as our crawling target. Next, we should extract course information from the course catalog pages and then collect the course information according to the description. We finally chose <i>The University of Technology Sydney (UTS)</i>.
 
 <p align="center">
-<img src="./figures/uts_webpage.png">
+<img src="./figures/UTS_webpage.png">
 </p>
 
 In our codes, we had to inherit from the given class `BaseCrawler` which was an interface for our codes. We used the `requests` and `BeautifulSoup` modules to crawl and parse the web pages. Additionally, to speed up the process, the code works with multi-threads (`threads_count=<INTENDED_THREADS_NUM>`).
