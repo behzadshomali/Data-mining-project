@@ -62,14 +62,14 @@ The following figure illustrates the <b>Wordcloud</b>s separately obtained from 
 By having the keywords in hand, extracting the <b>Frequent patterns</b> was a piece of cake! We used `mlxtend` library to do such. In bellow, you can find a small snippet of this section's output.
 
 <p align="center">
-<img src="./figures/frequent_patterns_output.png" width=25%>
+<img src="./figures/frequent_patterns_output.png" width=15%>
 </p>
 
 ## Phase3: Clustering & Classification
 This phase itself is divided into 3 sections: `Embedding`, `Clustering`, and `Classification`.
 
 <p align="center">
-<img src="./figures/phase3_pipeline.png"  width=75%>
+<img src="./figures/phase3_pipeline.png"  width=25%>
 </p>
 
 ### Embedding
@@ -83,7 +83,7 @@ To address the above problem, we needed to work with vectors, so in that case, w
 We used `K-means` and `DBSCAN` algorithms to cluster the obtained vectors. Although the clustering had been done unsupervised, to be able to evaluate the clusters we needed some kind of labels for our data. Hence, we set each course's department as its label.
 
 <p align="center">
-<img src="./figures/clustering_performance.png"  width=50%>
+<img src="./figures/clustering_performance.png"  width=35%>
 </p>
 
 ### Classification
