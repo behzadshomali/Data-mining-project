@@ -4,6 +4,7 @@ This repository contains our joint work (Mohammad Mohammadzadeh and I) in the co
 
 1. [Data crawling](#phase-1-data-crawling)
 2. [Preprocessing & Feature extraction](#phase2-preprocessing--feature-extraction)
+3. [Clustering & Classification](#phase3-clustering--classification)
 
 ## Phase 1: Data crawling
 In this phase, we should first select a university as our crawling ta rget. Next, we should extract course information from the course catalog pages and then collect the course information according to the description. We finally chose <i>The University of Technology Sydney (UTS)</i>.
@@ -62,4 +63,38 @@ By having the keywords in hand, extracting the <b>Frequent patterns</b> was a pi
 
 <p align="center">
 <img src="./figures/frequent_patterns_output.png" width=25%>
+</p>
+
+## Phase3: Clustering & Classification
+This phase itself is divided into 3 sections: `Embedding`, `Clustering`, and `Classification`.
+
+<p align="center">
+<img src="./figures/phase3_pipeline.png"  width=75%>
+</p>
+
+### Embedding
+In the previous phases, we crawled the required data, preprocessed it, and extracted the keywords. Meanwhile, in order to be able to compute the similarity/distance between two courses (for clustering and classification), the individual tokens are not so handy for us.
+
+To address the above problem, we needed to work with vectors, so in that case, we can effortlessly use cosine distance for comparing the similarity between different courses. Hence, we took advantage of `SentenceTransformers` which, according to its webpage, is a:
+
+> Python framework for SOTA sentence, text and image embeddings. . . . You can use this framework to compute sentence/text embeddings for more than 100 languages. These embeddings can then be compared e.g. with cosine-similarity to find sentences with a similar meaning.
+
+### Clustering
+We used `K-means` and `DBSCAN` algorithms to cluster the obtained vectors. Although the clustering had been done unsupervised, to be able to evaluate the clusters we needed some kind of labels for our data. Hence, we set each course's department as its label.
+
+<p align="center">
+<img src="./figures/clustering_performance.png"  width=50%>
+</p>
+
+### Classification
+Having ready vectors, as well as their labels, classifying the courses was not a pain in the rear! For this section, we used `SVM`, `Perceptron`, and `MLP` algorithms. Using these algorithms, we had a little bit more freedom to try different hyperparameters and we had to make an effort to tune them.
+
+<p align="center">
+<img src="./figures/classification_algos_hyperparams.png">
+</p>
+
+We finally took the best-obtained result from each algorithm and compared them together. Maybe, the obtained results seem discouraging at first, but please note that achieving the accuracy of ~68% while solving a classification problem with +40 existing classes (<i>random accuracy=~2.5%</i>) by using a very basic (and sometimes general) description for each course, make the results more valuable!
+
+<p align="center">
+<img src="./figures/classification_algos_best_result.png" width=50%>
 </p>
